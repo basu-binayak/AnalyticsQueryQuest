@@ -1,4 +1,7 @@
 # Data Manipulation Language (DML)
+This repository covers the basics of **Data Manipulation Language** using the dataset that is available in the book **"SQL for Data Analytics"**(***Chapter 1*** provides a step-by-step guide on how to load the dataset in the postgres database)
+
+**RESOURCE** - While **SQL for Data Analytics** is a fantastic resource to deepen your knowledge, the article, mentioned below, offers an additional layer of hands-on insights. Whether you're following along with the book or looking to expand your SQL toolkit, here you'll find practical examples, extra queries, and explanations that take you beyond the pages. Dive in, explore, and power up your SQL skills!
 
 This article , <a href="https://medium.com/@basubinayak05/introduction-to-sql-basics-of-dml-data-manipulation-language-d2213bddf301"> Introduction to SQL: Basics of DML (Data Manipulation Language)</a> dives deep into the use of Data Manipulation Language (DML) in SQL, with a primary focus on the SELECT statement. Here's a structured overview of the key points it covers:
 
