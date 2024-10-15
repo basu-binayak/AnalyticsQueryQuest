@@ -117,7 +117,7 @@ FROM customers;
 -- NOTE: DISTINCT includes [Null] as a distinct category
 
 -- OFFSET is used to skip a number of rows before returning the result, often in pagination scenarios.
--- find the second top city from the top_cities_data based on the number of customers 
+-- Query 19 : find the second top city from the top_cities_data based on the number of customers 
 
 SELECT *
 FROM top_cities_data
