@@ -303,8 +303,6 @@ SELECT CAST(123.45 AS integer); -- Result: 123
 SELECT CAST('2024-12-06' AS date); -- Result: 2024-12-06
 ```
 
----
-
 ### **Choosing the Right Option**
 - **`::numeric`**: Use when precision is essential for calculations.
 - **`::integer`**: Use when working with whole numbers.
@@ -312,3 +310,115 @@ SELECT CAST('2024-12-06' AS date); -- Result: 2024-12-06
 - **`::float` or `::double precision`**: Use for floating-point arithmetic.
 - **`::boolean`**: Use for conditional or logical operations.
 - **`::date`/`::timestamp`**: Use for date/time operations.
+
+---
+
+# **General Syntax of `GROUP BY` and `HAVING` in SQL**
+
+The `GROUP BY` clause is used to group rows with the same values in specified columns into summary rows, like "total revenue by region." The `HAVING` clause is then used to filter groups based on aggregate conditions.
+
+---
+
+### **Syntax**
+```sql
+SELECT 
+    column1, 
+    column2, 
+    AGGREGATE_FUNCTION(column3) 
+FROM 
+    table_name
+WHERE 
+    condition
+GROUP BY 
+    column1, column2
+HAVING 
+    aggregate_condition;
+```
+
+---
+
+### **Explanation of Key Parts**
+1. **`SELECT` Clause**:
+   - Lists the columns to display.
+   - Can include aggregate functions (e.g., `SUM`, `AVG`) applied to columns.
+
+2. **`WHERE` Clause**:
+   - Filters rows before grouping.
+   - Does not work with aggregate functions.
+
+3. **`GROUP BY` Clause**:
+   - Groups rows sharing the same values in the specified columns.
+   - Each group produces a single result row.
+
+4. **`HAVING` Clause**:
+   - Filters groups based on conditions involving aggregate functions.
+   - Applied after grouping.
+
+5. **Aggregate Functions**:
+   - Examples: `SUM`, `AVG`, `COUNT`, `MIN`, `MAX`.
+
+---
+
+### **Example 1: Simple Grouping**
+```sql
+SELECT 
+    department, 
+    COUNT(employee_id) AS total_employees 
+FROM 
+    employees
+GROUP BY 
+    department;
+```
+- **Explanation**:
+  - Groups rows by the `department`.
+  - Counts the number of employees in each department.
+
+---
+
+### **Example 2: Using `HAVING` with Conditions**
+```sql
+SELECT 
+    department, 
+    AVG(salary) AS avg_salary 
+FROM 
+    employees
+GROUP BY 
+    department
+HAVING 
+    AVG(salary) > 50000;
+```
+- **Explanation**:
+  - Groups rows by the `department`.
+  - Filters groups to show only departments where the average salary is greater than $50,000.
+
+---
+
+### **Example 3: Combining `WHERE` and `HAVING`**
+```sql
+SELECT 
+    category, 
+    SUM(sales) AS total_sales 
+FROM 
+    orders
+WHERE 
+    order_date >= '2024-01-01'
+GROUP BY 
+    category
+HAVING 
+    SUM(sales) > 10000;
+```
+- **Explanation**:
+  - `WHERE` filters rows with an order date in 2024 or later.
+  - `GROUP BY` groups rows by `category`.
+  - `HAVING` filters groups where the total sales exceed $10,000.
+
+---
+
+### **Key Differences: `WHERE` vs `HAVING`**
+| **Aspect**        | **WHERE**                                   | **HAVING**                                |
+|--------------------|---------------------------------------------|-------------------------------------------|
+| **Filters**        | Rows before grouping.                      | Groups after aggregation.                 |
+| **Use with Aggregates** | Cannot use aggregate functions.          | Can use aggregate functions.              |
+| **Application Order** | Applied first.                           | Applied after `GROUP BY`.                 |
+
+Let me know if you'd like additional examples or clarification!
