@@ -66,19 +66,25 @@
   SELECT STDDEV(column_name) AS std_dev FROM table_name;
   ```
 - **How It Works**:
+
 - Measures how much values deviate from the mean.  
   - **Formula**:  
-    $ \text{Standard Deviation} = \sqrt{\frac{\sum{(x_i - \bar{x})^2}}{N}} $  
+    ```math
+    \text{Standard Deviation} = \sqrt{\frac{\sum{(x_i - \bar{x})^2}}{N}}
+    ```
     Where $x_i$ = individual value, $\bar{x}$ = mean, $N$ = total count.  
 
 - **Example**:  
   Values: `[10, 12, 14]`, Mean = 12  
   - Deviation: `(-2, 0, 2)`  
   - Variance:  
-    $ \frac{(4 + 0 + 4)}{3} = \frac{8}{3} \approx 2.67 $  
+    ```math
+    \frac{(4 + 0 + 4)}{3} = \frac{8}{3} \approx 2.67
+    ```
   - Standard Deviation:  
-    $ \sqrt{2.67} \approx 1.63 $  
-
+    ```math
+    \sqrt{2.67} \approx 1.63
+    ```
 
 ### **6. COUNT()**
 - **Purpose**: Counts the number of rows or non-NULL values in a column.
