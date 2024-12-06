@@ -13,3 +13,15 @@ SELECT
 FROM customers;
 
 -- Query 3: All aggregate functions, most oftenly used!
+SELECT 
+    AVG(base_msrp) AS avg_base_msrp,
+    SUM(base_msrp) AS sum_base_msrp,
+    SUM(base_msrp) / COUNT(*) AS calc_avg_base_msrp,
+    MIN(base_msrp) AS min_base_msrp,
+    MAX(base_msrp) AS max_base_msrp,
+    STDDEV(base_msrp) AS std_dev_base_msrp,
+    COUNT(base_msrp) AS count_base_msrp,
+    VARIANCE(base_msrp) AS variance_base_msrp,
+    PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY base_msrp) AS median_base_msrp
+FROM products;
+

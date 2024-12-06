@@ -153,6 +153,10 @@ Here's a detailed explanation of the function in your query:
 ```sql
 PERCENTILE_CONT(fraction) WITHIN GROUP (ORDER BY column_name) AS alias
 ```
+### **Example**
+```sql
+PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY base_msrp) AS median_base_msrp
+```
 
 ### **Components**
 1. **`PERCENTILE_CONT(fraction)`**:
