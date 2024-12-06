@@ -142,6 +142,7 @@
 These aggregate functions are powerful tools for summarizing and analyzing data efficiently. Let me know if you'd like more examples or use cases for any of them!
 
 
+---
 
 ## `PERCENTILE_CONT` function
 
@@ -197,3 +198,117 @@ If the values were `[200, 300, 500, 600]`:
 - **Alternative**: PostgreSQL also has `PERCENTILE_DISC` (discrete), which returns the nearest value in the dataset without interpolation.
 
 By using this function, you can dynamically calculate a variety of percentiles, not just the median!
+
+---
+
+# Type Casting
+
+In PostgreSQL, the `::` operator is used for type casting, allowing you to convert one data type to another. While `::numeric` is commonly used for converting values to a numeric type for precise calculations, there are other type casting options depending on your use case.
+
+### **Common Type Casting Options in PostgreSQL**
+
+1. **Integer**
+   - **Usage**: Convert a value to an integer.
+   ```sql
+   SELECT 12.5::integer; -- Result: 12
+   ```
+   - **Purpose**: Removes the fractional part and returns an integer.
+
+2. **Text**
+   - **Usage**: Convert a value to a text type.
+   ```sql
+   SELECT 12345::text; -- Result: '12345'
+   ```
+   - **Purpose**: Useful for concatenation or formatting.
+
+3. **Float**
+   - **Usage**: Convert a value to a floating-point type.
+   ```sql
+   SELECT 123::float; -- Result: 123.0
+   ```
+   - **Purpose**: To ensure the value is treated as a floating-point number.
+
+4. **Double Precision**
+   - **Usage**: Convert a value to a double precision type.
+   ```sql
+   SELECT 123.45::double precision; -- Result: 123.45
+   ```
+   - **Purpose**: For high-precision floating-point calculations.
+
+5. **Boolean**
+   - **Usage**: Convert a value to a boolean.
+   ```sql
+   SELECT 1::boolean; -- Result: true
+   SELECT 0::boolean; -- Result: false
+   ```
+   - **Purpose**: To represent true/false values.
+
+6. **Date**
+   - **Usage**: Convert a value to a date.
+   ```sql
+   SELECT '2024-12-06'::date; -- Result: 2024-12-06
+   ```
+   - **Purpose**: Converts a string or timestamp into a `date` type.
+
+7. **Timestamp**
+   - **Usage**: Convert a value to a timestamp.
+   ```sql
+   SELECT '2024-12-06 14:00:00'::timestamp; -- Result: 2024-12-06 14:00:00
+   ```
+   - **Purpose**: Useful for handling datetime values.
+
+8. **JSON/JSONB**
+   - **Usage**: Convert a value to JSON or JSONB format.
+   ```sql
+   SELECT '{"key": "value"}'::json; -- Result: {"key": "value"}
+   SELECT '{"key": "value"}'::jsonb; -- Result: {"key": "value"}
+   ```
+   - **Purpose**: For handling structured data.
+
+9. **Array**
+   - **Usage**: Convert a value to an array type.
+   ```sql
+   SELECT '{1,2,3}'::int[]; -- Result: {1,2,3}
+   ```
+   - **Purpose**: Useful for storing multiple values in a single column.
+
+10. **UUID**
+    - **Usage**: Convert a value to a UUID type.
+    ```sql
+    SELECT '550e8400-e29b-41d4-a716-446655440000'::uuid;
+    ```
+    - **Purpose**: To handle universally unique identifiers.
+
+11. **Interval**
+    - **Usage**: Convert a value to an interval type.
+    ```sql
+    SELECT '1 day'::interval; -- Result: 1 day
+    ```
+    - **Purpose**: For representing time intervals.
+
+12. **Bytea**
+    - **Usage**: Convert a value to a binary string type.
+    ```sql
+    SELECT 'hello'::bytea; -- Result: \x68656c6c6f
+    ```
+    - **Purpose**: Useful for storing binary data.
+
+---
+
+### **Explicit Casting Using `CAST`**
+Instead of using `::`, you can also use the `CAST` function for type conversion:
+
+```sql
+SELECT CAST(123.45 AS integer); -- Result: 123
+SELECT CAST('2024-12-06' AS date); -- Result: 2024-12-06
+```
+
+---
+
+### **Choosing the Right Option**
+- **`::numeric`**: Use when precision is essential for calculations.
+- **`::integer`**: Use when working with whole numbers.
+- **`::text`**: Use for display or string operations.
+- **`::float` or `::double precision`**: Use for floating-point arithmetic.
+- **`::boolean`**: Use for conditional or logical operations.
+- **`::date`/`::timestamp`**: Use for date/time operations.

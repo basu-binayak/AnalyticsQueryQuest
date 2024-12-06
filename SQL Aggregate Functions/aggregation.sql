@@ -25,3 +25,16 @@ SELECT
     PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY base_msrp) AS median_base_msrp
 FROM products;
 
+-- Query 4 : COUNT DISTINCT is used to calculate the number of distinct values in a column 
+SELECT 
+    COUNT(customer_id)::numeric / COUNT(DISTINCT state) AS avg_customers_per_state
+FROM 
+    customers; 
+
+/* Note that in the preceding SQL, the count of customer ID is cast as numeric. The reason you must cast this as numeric is that the COUNT() function always returns an integer. PostgreSQL treats integer division differently than float division in that it will ignore the decimal part of the result.*/
+
+-- Query 4.1 - Writing the same query but using the CAST function
+SELECT 
+    CAST(COUNT(customer_id) AS float) / COUNT(DISTINCT state) AS avg_customers_per_state
+FROM 
+    customers;
