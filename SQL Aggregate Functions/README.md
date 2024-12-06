@@ -77,13 +77,10 @@
   Values: `[10, 12, 14]`, Mean = 12  
   - Deviation: `(-2, 0, 2)`  
   - Variance:  
-    ```math
-    \frac{(4 + 0 + 4)}{3} = \frac{8}{3} \approx 2.67
-    ```
+    $\frac{(4 + 0 + 4)}{3} = \frac{8}{3} \approx 2.67$
+    
   - Standard Deviation:  
-    ```math
-    \sqrt{2.67} \approx 1.63
-    ```
+    $\sqrt{2.67} \approx 1.63$
 
 ### **6. COUNT()**
 - **Purpose**: Counts the number of rows or non-NULL values in a column.
