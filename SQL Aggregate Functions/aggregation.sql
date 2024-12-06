@@ -38,3 +38,26 @@ SELECT
     CAST(COUNT(customer_id) AS float) / COUNT(DISTINCT state) AS avg_customers_per_state
 FROM 
     customers;
+
+--Query 5 - Using GROUP BY clause to get the customer count for each of the non-null states. 
+SELECT state, count(*) as customer_count
+FROM customers 
+WHERE state is NOT NULL 
+GROUP BY state
+ORDER BY customer_count DESC;
+
+-- Query 6 - We modify the lst query and add a filter to the aggregation that we have done using the HAVING clause
+SELECT state, count(*) as customer_count
+FROM customers 
+WHERE state is NOT NULL 
+GROUP BY state
+HAVING count(*)>1000 -- note that the aggregation function is used since HAVING is evaluated before the SELECT clause 
+ORDER BY customer_count DESC; -- ORDER BY is evaluated after the SELECT statement , hence the alias for the aggregate function can be used. 
+
+-- Query 7 - Using a function of a column as a key to the GROUP BY clause 
+SELECT 
+	TO_CHAR(date_added, 'YYYY') AS Year, --using a function of a column as a key to the GROUP BY clause 
+	COUNT(*)
+FROM customers
+GROUP BY TO_CHAR(date_added, 'YYYY')
+ORDER BY Year;
