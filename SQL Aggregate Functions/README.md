@@ -69,9 +69,8 @@
 
 - Measures how much values deviate from the mean.  
   - **Formula**:  
-    ```math
-    \text{Standard Deviation} = \sqrt{\frac{\sum{(x_i - \bar{x})^2}}{N}}
-    ```
+    $\text{Standard Deviation} = \sqrt{\frac{\sum{(x_i - \bar{x})^2}}{N}}$
+    
     Where $x_i$ = individual value, $\bar{x}$ = mean, $N$ = total count.  
 
 - **Example**:  
