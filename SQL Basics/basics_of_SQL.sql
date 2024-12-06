@@ -15,8 +15,7 @@ FROM customers
 WHERE city = 'Washington';
 
 -- making complex conditionals with AND/OR/BETWEEN 
-/* Query 5 : select the odels that were built between 2013 and 2017 (both inclusive) and the 
-manufacturer's Suggested Retail Price is less than 100*/
+/* Query 5 : select the models that were built between 2013 and 2017 (both inclusive) and the  manufacturer's suggested Retail Price is less than 100*/
 SELECT model, base_msrp, year
 FROM products
 WHERE (year BETWEEN 2013 AND 2017) AND (base_msrp < 1000);
@@ -32,6 +31,7 @@ OR product_type='automobile';
 SELECT model, product_type, year
 FROM products 
 WHERE year IN (2014, 2016, 2019);
+
 -- Query 8: if we want to return models not from the years 2014, 2016, or 2019 - use NOT IN
 SELECT model, product_type, year
 FROM products 
@@ -45,23 +45,20 @@ FROM products
 WHERE product_type = 'scooter'
 ORDER BY production_end_date DESC;
 
-/*Query 10: order all the rows in the table first by the year of the model from newest to oldest, 
-and then by the MSRP from least to greatest.*/
+/*Query 10: order all the rows in the table first by the year of the model from newest to oldest, and then by the MSRP from least to greatest.*/
 SELECT *
 FROM products
 ORDER BY year DESC, base_msrp ASC;
 
 -- LIMIT Clause
-/*Query 11 : select models from products ordered by production_start_date but limit the number of 
-data points to 5*/
+/*Query 11 : select models from products ordered by production_start_date but limit the number of data points to 5*/
 SELECT model
 FROM products
 ORDER BY production_start_date
 LIMIT 5;
 
 -- IS NULL/ IS NOT NULL clause 
-/*Query 12: The column city in customers table has null values - we want the customer_id where 
-the city is null*/
+/*Query 12: The column city in customers table has null values - we want the customer_id where the city is null*/
 SELECT customer_id, city
 FROM customers 
 WHERE city IS NULL;
@@ -71,17 +68,14 @@ FROM customers
 WHERE city IS NOT NULL;
 
 -- all in one 
-/* Query 14: return top 10 rows all field of the salespeople table where dealership_id is 17 and order
-by hire_date*/ 
+/* Query 14: return top 10 rows all field of the salespeople table where dealership_id is 17 and order by hire_date*/ 
 SELECT *
 FROM salespeople
 WHERE dealership_id = 17
 ORDER BY hire_date
 LIMIT 10;
 
-/*Query 15 : find all the salespeople that were hired in 2021 and 2022 but have not been terminated, 
-that is, the hire_date must be later than 2021-01-01, andtermination_date is null, ordered 
-by hire date, with the latest first */
+/*Query 15 : find all the salespeople that were hired in 2021 and 2022 but have not been terminated,  that is, the hire_date must be later than 2021-01-01,and termination_date is null, ordered by hire date, with the latest first */
 SELECT *
 FROM salespeople
 WHERE hire_date BETWEEN '2021-01-01' AND '2022-12-31'
