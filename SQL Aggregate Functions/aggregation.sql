@@ -61,3 +61,16 @@ SELECT
 FROM customers
 GROUP BY TO_CHAR(date_added, 'YYYY')
 ORDER BY Year;
+
+-- Query 8 - GROUP BY using Multiple columns - i.e. there are two keys for the GROUP BY clause i.e. the aggrgation takes place based on the unique combination of the two columns selected as the key
+SELECT 
+	state, 
+	TO_CHAR(date_added, 'YYYY') AS Year,
+	count(*) as customer_count
+FROM customers 
+WHERE state is NOT NULL 
+GROUP BY 
+	state,
+	TO_CHAR(date_added, 'YYYY')
+ORDER BY 
+	customer_count DESC;
