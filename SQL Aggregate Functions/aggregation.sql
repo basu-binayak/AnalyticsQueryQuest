@@ -74,3 +74,4 @@ GROUP BY
 	TO_CHAR(date_added, 'YYYY')
 ORDER BY 
 	customer_count DESC;
+
