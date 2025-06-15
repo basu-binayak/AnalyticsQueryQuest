@@ -294,7 +294,9 @@ SELECT id, text_value, OVERLAY(text_value PLACING 'zz' FROM 3) AS overlayed_text
 | `EXP(x)` | e^x | `EXP(1) → 2.718...` |
 
 ---
-### 3. **Date/Time Functions**
+---
+
+## 3. **Date/Time Functions**
 | Function | Purpose | Example |
 |:---|:---|:---|
 | `CURRENT_DATE` | Current date | |
@@ -308,20 +310,127 @@ SELECT id, text_value, OVERLAY(text_value PLACING 'zz' FROM 3) AS overlayed_text
 | `TO_DATE(str, format)` | Parse date string to date | `TO_DATE('2025-04-28', 'YYYY-MM-DD')` |
 
 ---
-### 4. **Conditional Functions**
+---
+
+## 4. **Conditional Functions**
 | Function | Purpose | Example |
 |:---|:---|:---|
 | `COALESCE(x1, x2, ..., xn)` | First non-NULL value | `COALESCE(NULL, 2, 3) → 2` |
 | `NULLIF(x, y)` | NULL if x=y | `NULLIF(5,5) → NULL` |
 | `CASE WHEN ... THEN ... ELSE ... END` | If-else logic | See below |
 
-✅ Example CASE:
+Great! Let's walk through each **conditional function** — explain it **simply**, **show the actual data**, and **explain what happened and why**.
+
+---
+
+## 🧩 Table Used: `sample_conditions`
+
+| id | value1 | value2 |
+| -- | ------ | ------ |
+| 1  | NULL   | 100    |
+| 2  | 50     | NULL   |
+| 3  | NULL   | NULL   |
+| 4  | 30     | 30     |
+| 5  | 25     | 50     |
+| 6  | 0      | 0      |
+
+---
+
+## 1️⃣ `COALESCE(x1, x2, ..., xn)`
+
+### 👉 Returns the **first non-NULL** value.
 
 ```sql
-SELECT CASE WHEN score >= 60 THEN 'Pass' ELSE 'Fail' END
-FROM students;
+SELECT id, value1, value2, COALESCE(value1, value2) AS first_non_null
+FROM sample_conditions;
 ```
 
+| id | value1 | value2 | first\_non\_null |
+| -- | ------ | ------ | ---------------- |
+| 1  | NULL   | 100    | 100              |
+| 2  | 50     | NULL   | 50               |
+| 3  | NULL   | NULL   | NULL             |
+| 4  | 30     | 30     | 30               |
+| 5  | 25     | 50     | 25               |
+| 6  | 0      | 0      | 0                |
+
+### ✅ Explanation:
+
+* Row 1: value1 is NULL, so it returns value2 (100).
+* Row 3: both are NULL → returns NULL.
+* Row 6: value1 is 0 (zero is **not** NULL) → returns 0.
+
+---
+
+## 2️⃣ `NULLIF(x, y)`
+
+### 👉 Returns NULL **if x = y**, else returns `x`.
+
+```sql
+SELECT id, value1, value2, NULLIF(value1, value2) AS null_if_equal
+FROM sample_conditions;
+```
+
+| id | value1 | value2 | null\_if\_equal |
+| -- | ------ | ------ | --------------- |
+| 1  | NULL   | 100    | NULL            |
+| 2  | 50     | NULL   | 50              |
+| 3  | NULL   | NULL   | NULL            |
+| 4  | 30     | 30     | NULL            |
+| 5  | 25     | 50     | 25              |
+| 6  | 0      | 0      | NULL            |
+
+### ✅ Explanation:
+
+* Row 4: value1 = value2 (30) → returns NULL.
+* Row 5: values differ → returns value1 (25).
+* Row 3: both NULL → returns NULL (this is how PostgreSQL handles NULL = NULL).
+
+---
+
+## 3️⃣ `CASE WHEN ... THEN ... ELSE ... END`
+
+### 👉 Custom conditional logic — like if-else.
+
+```sql
+SELECT id, value1, value2,
+       CASE
+           WHEN value1 IS NULL AND value2 IS NULL THEN 'Both NULL'
+           WHEN value1 IS NULL THEN 'value1 is NULL'
+           WHEN value2 IS NULL THEN 'value2 is NULL'
+           WHEN value1 = value2 THEN 'Equal values'
+           ELSE 'Different values'
+       END AS condition_category
+FROM sample_conditions;
+```
+
+| id | value1 | value2 | condition\_category |
+| -- | ------ | ------ | ------------------- |
+| 1  | NULL   | 100    | value1 is NULL      |
+| 2  | 50     | NULL   | value2 is NULL      |
+| 3  | NULL   | NULL   | Both NULL           |
+| 4  | 30     | 30     | Equal values        |
+| 5  | 25     | 50     | Different values    |
+| 6  | 0      | 0      | Equal values        |
+
+### ✅ Explanation:
+
+* Row 1: value1 is NULL → matched second condition.
+* Row 3: both values are NULL → matched first condition.
+* Row 4: 30 = 30 → 'Equal values'.
+* Row 5: 25 ≠ 50 → fallback `ELSE`, returns 'Different values'.
+
+---
+
+## 🧠 Summary Table
+
+| Function    | What it Does                         | Best Used When...                                        |
+| ----------- | ------------------------------------ | -------------------------------------------------------- |
+| `COALESCE`  | Returns first non-NULL value         | You want a default/fallback value                        |
+| `NULLIF`    | Returns NULL if two values are equal | You want to avoid division by zero, or flag equal values |
+| `CASE WHEN` | Custom if-else logic                 | You need flexible conditions and labels                  |
+
+---
 ---
 ### 5. **Type Conversion Functions**
 | Function | Purpose | Example |
